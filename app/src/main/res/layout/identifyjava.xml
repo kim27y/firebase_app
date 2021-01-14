@@ -55,8 +55,19 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="저장"
-            android:onClick="clicksaving"
-            />
+            android:onClick="clicksaving" />
+
+
+        <EditText
+            android:id="@+id/base_data"
+            android:layout_below= "@id/okbutton1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:textSize="15dp"
+            android:text="firebase" />
 
 
     </RelativeLayout>

@@ -9,6 +9,10 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.google.firebase.analytics.FirebaseAnalytics;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 public class MainActivity extends AppCompatActivity {
 
     private String username;
@@ -49,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    public void click01(View v){
+    public void click01(View v){ //firebase 데이타베이스도 여기서 진행
         Intent intent1 = new Intent(getApplicationContext(), identifyJava.class);
         startActivity(intent1);
     }
