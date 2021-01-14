@@ -46,7 +46,7 @@
             android:ems="10"
             android:inputType="textPersonName"
             android:textSize="15dp"
-            android:text="학번" />
+            android:text="학수번호" />
 
 
         <Button
