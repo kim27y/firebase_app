@@ -15,4 +15,7 @@
         android:inputType="textPersonName"
         android:text="Sample EditText" />
 
+
+
+
 </RelativeLayout>

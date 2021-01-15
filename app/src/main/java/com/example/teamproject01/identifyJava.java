@@ -29,10 +29,10 @@ public class identifyJava extends AppCompatActivity {
 
 
     public void clicksaving(View v){
+
         final EditText username1 = (EditText) findViewById(R.id.username);
         final EditText usercode1 = (EditText) findViewById(R.id.usercode);
         final EditText classcode1 = (EditText) findViewById(R.id.classcode);
-
 
         FirebaseDatabase DB1 = FirebaseDatabase.getInstance();
         DatabaseReference myRef = DB1.getReference("check").child(classcode1.getText().toString()).child(usercode1.getText().toString());
@@ -55,6 +55,7 @@ public class identifyJava extends AppCompatActivity {
 
 
     public void clickcancel(View v) {
+
         final EditText username1 = (EditText) findViewById(R.id.username);
         final EditText usercode1 = (EditText) findViewById(R.id.usercode);
         final EditText classcode1 = (EditText) findViewById(R.id.classcode);
@@ -79,7 +80,22 @@ public class identifyJava extends AppCompatActivity {
         ((MainActivity) MainActivity.forstatic).changingUsercode(usercode1.getText().toString());
     }
 
-    
+    public void clickupdate(View v) {
 
+        final EditText username1 = (EditText) findViewById(R.id.username);
+        final EditText usercode1 = (EditText) findViewById(R.id.usercode);
+        final EditText classcode1 = (EditText) findViewById(R.id.classcode);
+        final EditText updatefield1 = (EditText) findViewById(R.id.updatefield);
+
+        FirebaseDatabase DB1 = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = DB1.getReference("check").child(classcode1.getText().toString()).child("ALARM").child(username1.getText().toString());
+        myRef.setValue(updatefield1.getText().toString());
+    }
+
+
+    public void clickchat(View v) {
+        Intent intent1 = new Intent(getApplicationContext(), chat.class);
+        startActivity(intent1);
+    }
 
 }
