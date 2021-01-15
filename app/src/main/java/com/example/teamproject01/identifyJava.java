@@ -79,11 +79,7 @@ public class identifyJava extends AppCompatActivity {
         ((MainActivity) MainActivity.forstatic).changingUsercode(usercode1.getText().toString());
     }
 
-    public void
-
-
-
-
+    
 
 
 }
