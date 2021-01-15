@@ -29,14 +29,15 @@ public class identifyJava extends AppCompatActivity {
 
 
     public void clicksaving(View v){
-        EditText username1 = (EditText) findViewById(R.id.username);
+        final EditText username1 = (EditText) findViewById(R.id.username);
         final EditText usercode1 = (EditText) findViewById(R.id.usercode);
-        final EditText base_data1 = (EditText) findViewById(R.id.base_data);
+        final EditText classcode1 = (EditText) findViewById(R.id.classcode);
+
 
         FirebaseDatabase DB1 = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = DB1.getReference("check").child(usercode1.getText().toString()).child(username1.getText().toString());
+        DatabaseReference myRef = DB1.getReference("check").child(classcode1.getText().toString()).child(usercode1.getText().toString());
 
-
+        /*
         Map<Object,Object> test1 = new HashMap<Object, Object>();
 
         String name_user01 = username1.getText().toString();
@@ -44,36 +45,45 @@ public class identifyJava extends AppCompatActivity {
 
         test1.put("name",name_user01);
         test1.put("class_name",name_class01);
-        myRef.setValue(test1);
-
-
-
-
-
-
-
-        /*
-        myRef.addValueEventListener((new ValueEventListener() {
-
-            String Value;
-
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-
-                Value= snapshot.getValue(String.class);
-                base_data1.setText(Value);
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                base_data1.setText("error in getting");
-            }
-        }));
         */
 
-
+        myRef.setValue(username1.getText().toString());
 
         ((MainActivity)MainActivity.forstatic).changingUsername(username1.getText().toString());
         ((MainActivity)MainActivity.forstatic).changingUsercode(usercode1.getText().toString());
     }
+
+
+    public void clickcancel(View v) {
+        final EditText username1 = (EditText) findViewById(R.id.username);
+        final EditText usercode1 = (EditText) findViewById(R.id.usercode);
+        final EditText classcode1 = (EditText) findViewById(R.id.classcode);
+
+        FirebaseDatabase DB1 = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = DB1.getReference("check").child(classcode1.getText().toString()).child(usercode1.getText().toString());
+
+        /*
+        Map<Object,Object> test1 = new HashMap<Object, Object>();
+
+        String name_user01 = username1.getText().toString();
+        String name_class01 = usercode1.getText().toString();
+
+        test1.put("name",name_user01);
+        test1.put("class_name",name_class01);
+         */
+
+        myRef.setValue(username1.toString());
+        myRef.removeValue();
+
+        ((MainActivity) MainActivity.forstatic).changingUsername(username1.getText().toString());
+        ((MainActivity) MainActivity.forstatic).changingUsercode(usercode1.getText().toString());
+    }
+
+    public void
+
+
+
+
+
+
 }
