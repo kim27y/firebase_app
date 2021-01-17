@@ -18,6 +18,7 @@ public class MainActivity extends AppCompatActivity {
     private String username ="";
     private String usercode = "";
     private String classcode = "";
+    private String chatstate = "";
 
     private String enroll_date;
     private String returnString;
@@ -44,7 +45,8 @@ public class MainActivity extends AppCompatActivity {
     public void changingClasscode(String data) { classcode = data; }
     public String returnClasscode() {return classcode;}
 
-
+    public void changingchatState(String data) { chatstate = data; }
+    public String returnchatState() {return chatstate;}
 
 
 

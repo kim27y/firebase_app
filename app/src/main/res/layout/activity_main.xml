@@ -30,7 +30,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="15dp"
-        android:text="스터디 참석하기"
+        android:text="스터디 방 만들기"
         android:onClick="click01"
      />
 
