@@ -16,6 +16,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -25,7 +27,6 @@ public class identifyJava extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.identifyjava);
     }
-
 
     public void clicksaving(View v){
 
@@ -40,7 +41,7 @@ public class identifyJava extends AppCompatActivity {
 
         ((MainActivity)MainActivity.forstatic).changingUsername(username1.getText().toString());
         ((MainActivity)MainActivity.forstatic).changingUsercode(usercode1.getText().toString());
-        ((MainActivity)MainActivity.forstatic).changingUsercode(classcode1.getText().toString());
+        ((MainActivity)MainActivity.forstatic).changingClasscode(classcode1.getText().toString());
     }
 
 
@@ -50,14 +51,16 @@ public class identifyJava extends AppCompatActivity {
         final EditText usercode1 = (EditText) findViewById(R.id.usercode);
         final EditText classcode1 = (EditText) findViewById(R.id.classcode);
 
+
         FirebaseDatabase DB1 = FirebaseDatabase.getInstance();
         DatabaseReference myRef = DB1.getReference("check").child(classcode1.getText().toString()).child(usercode1.getText().toString());
 
         myRef.setValue(username1.toString());
         myRef.removeValue();
 
-        ((MainActivity) MainActivity.forstatic).changingUsername(username1.getText().toString());
-        ((MainActivity) MainActivity.forstatic).changingUsercode(usercode1.getText().toString());
+        ((MainActivity)MainActivity.forstatic).changingUsername(username1.getText().toString());
+        ((MainActivity)MainActivity.forstatic).changingUsercode(usercode1.getText().toString());
+        ((MainActivity)MainActivity.forstatic).changingClasscode(classcode1.getText().toString());
     }
 
 
@@ -66,6 +69,8 @@ public class identifyJava extends AppCompatActivity {
         final EditText username1 = (EditText) findViewById(R.id.username);
         final EditText usercode1 = (EditText) findViewById(R.id.usercode);
         final EditText classcode1 = (EditText) findViewById(R.id.classcode);
+
+
         final EditText updatefield1 = (EditText) findViewById(R.id.updatefield);
 
         FirebaseDatabase DB1 = FirebaseDatabase.getInstance();
@@ -75,6 +80,20 @@ public class identifyJava extends AppCompatActivity {
 
 
     public void clickchat(View v) {
+        final EditText username1 = (EditText) findViewById(R.id.username);
+        final EditText usercode1 = (EditText) findViewById(R.id.usercode);
+        final EditText classcode1 = (EditText) findViewById(R.id.classcode);
+
+        ((MainActivity)MainActivity.forstatic).changingUsername(username1.getText().toString());
+        ((MainActivity)MainActivity.forstatic).changingUsercode(usercode1.getText().toString());
+        ((MainActivity)MainActivity.forstatic).changingClasscode(classcode1.getText().toString());
+
+        FirebaseDatabase DB1 = FirebaseDatabase.getInstance();
+        Date currentTime = Calendar.getInstance().getTime();
+
+        DatabaseReference myRef = DB1.getReference("check").child(classcode1.getText().toString()).child("chat").child(currentTime.toString());
+        myRef.setValue( username1  + " 님이 입장하셨습니다" + "\n");
+
         Intent intent1 = new Intent(getApplicationContext(), chat.class);
         startActivity(intent1);
     }
