@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -33,6 +34,7 @@ public class identifyJava extends AppCompatActivity {
         final EditText username1 = (EditText) findViewById(R.id.username);
         final EditText usercode1 = (EditText) findViewById(R.id.usercode);
         final EditText classcode1 = (EditText) findViewById(R.id.classcode);
+        final TextView login_content = (TextView)findViewById(R.id.login_contents);
 
         FirebaseDatabase DB1 = FirebaseDatabase.getInstance();
         DatabaseReference myRef = DB1.getReference("check").child(classcode1.getText().toString()).child(usercode1.getText().toString());
@@ -42,6 +44,10 @@ public class identifyJava extends AppCompatActivity {
         ((MainActivity)MainActivity.forstatic).changingUsername(username1.getText().toString());
         ((MainActivity)MainActivity.forstatic).changingUsercode(usercode1.getText().toString());
         ((MainActivity)MainActivity.forstatic).changingClasscode(classcode1.getText().toString());
+
+        String showdata = "이름 " + username1.getText().toString() + "\n" + "학번 " + usercode1.getText().toString() + "\n" +  "학수번호 " + classcode1.getText().toString();
+        login_content.setText(showdata);
+
     }
 
 
@@ -50,7 +56,11 @@ public class identifyJava extends AppCompatActivity {
         final EditText username1 = (EditText) findViewById(R.id.username);
         final EditText usercode1 = (EditText) findViewById(R.id.usercode);
         final EditText classcode1 = (EditText) findViewById(R.id.classcode);
+        final TextView login_content = (TextView)findViewById(R.id.login_contents);
 
+        username1.setText("이름");
+        usercode1.setText("학번");
+        classcode1.setText("");
 
         FirebaseDatabase DB1 = FirebaseDatabase.getInstance();
         DatabaseReference myRef = DB1.getReference("check").child(classcode1.getText().toString()).child(usercode1.getText().toString());
@@ -58,26 +68,38 @@ public class identifyJava extends AppCompatActivity {
         myRef.setValue(username1.toString());
         myRef.removeValue();
 
-        ((MainActivity)MainActivity.forstatic).changingUsername(username1.getText().toString());
-        ((MainActivity)MainActivity.forstatic).changingUsercode(usercode1.getText().toString());
-        ((MainActivity)MainActivity.forstatic).changingClasscode(classcode1.getText().toString());
+        ((MainActivity)MainActivity.forstatic).changingUsername("이름");
+        ((MainActivity)MainActivity.forstatic).changingUsercode("학번");
+        ((MainActivity)MainActivity.forstatic).changingClasscode("");
+
+        String showdata = "이름 " + username1.getText().toString() + "\n" + "학번 " + usercode1.getText().toString() + "\n" +  "학수번호 " + classcode1.getText().toString();
+        login_content.setText(showdata);
+
     }
 
 
-    public void clickupdate(View v) {
-
+    public void clickAlarm(View v) {
         final EditText username1 = (EditText) findViewById(R.id.username);
         final EditText usercode1 = (EditText) findViewById(R.id.usercode);
         final EditText classcode1 = (EditText) findViewById(R.id.classcode);
 
+        ((MainActivity)MainActivity.forstatic).changingUsername(username1.getText().toString());
+        ((MainActivity)MainActivity.forstatic).changingUsercode(usercode1.getText().toString());
+        ((MainActivity)MainActivity.forstatic).changingClasscode(classcode1.getText().toString());
+        ((MainActivity)MainActivity.forstatic).changingchatState("alarm");
 
-        final EditText updatefield1 = (EditText) findViewById(R.id.updatefield);
+        if(((MainActivity)MainActivity.forstatic).getReturnString() != "") {
 
-        FirebaseDatabase DB1 = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = DB1.getReference("check").child(classcode1.getText().toString()).child("ALARM").child(username1.getText().toString());
-        myRef.setValue(updatefield1.getText().toString());
+            FirebaseDatabase DB1 = FirebaseDatabase.getInstance();
+            Date currentTime = Calendar.getInstance().getTime();
+
+            DatabaseReference myRef = DB1.getReference("check").child(classcode1.getText().toString()).child("alarm").child(currentTime.toString());
+            myRef.setValue(username1.getText().toString() + " 님이 입장하셨습니다" + "\n");
+
+            Intent intent1 = new Intent(getApplicationContext(), chat.class);
+            startActivity(intent1);
+        }
     }
-
 
     public void clickchat(View v) {
         final EditText username1 = (EditText) findViewById(R.id.username);
@@ -87,15 +109,19 @@ public class identifyJava extends AppCompatActivity {
         ((MainActivity)MainActivity.forstatic).changingUsername(username1.getText().toString());
         ((MainActivity)MainActivity.forstatic).changingUsercode(usercode1.getText().toString());
         ((MainActivity)MainActivity.forstatic).changingClasscode(classcode1.getText().toString());
+        ((MainActivity)MainActivity.forstatic).changingchatState("chat");
 
-        FirebaseDatabase DB1 = FirebaseDatabase.getInstance();
-        Date currentTime = Calendar.getInstance().getTime();
+        if(((MainActivity)MainActivity.forstatic).getReturnString() != "") {
 
-        DatabaseReference myRef = DB1.getReference("check").child(classcode1.getText().toString()).child("chat").child(currentTime.toString());
-        myRef.setValue( username1  + " 님이 입장하셨습니다" + "\n");
+            FirebaseDatabase DB1 = FirebaseDatabase.getInstance();
+            Date currentTime = Calendar.getInstance().getTime();
 
-        Intent intent1 = new Intent(getApplicationContext(), chat.class);
-        startActivity(intent1);
+            DatabaseReference myRef = DB1.getReference("check").child(classcode1.getText().toString()).child("chat").child(currentTime.toString());
+            myRef.setValue(username1.getText().toString() + " 님이 입장하셨습니다" + "\n");
+
+            Intent intent1 = new Intent(getApplicationContext(), chat.class);
+            startActivity(intent1);
+        }
     }
 
 }
