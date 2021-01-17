@@ -6,10 +6,13 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -21,55 +24,61 @@ import java.util.Map;
 
 public class identifyJava extends AppCompatActivity {
 
+
+    private EditText classcode1;
+    private TextView showname;
+    private TextView showcode;
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.identifyjava);
+
+        showname = (TextView) findViewById(R.id.username);
+        showcode = (TextView) findViewById(R.id.usercode);
+
+        showname.setText(((MainActivity)MainActivity.forstatic).returnUsername());
+        showcode.setText(((MainActivity)MainActivity.forstatic).returnUsercode());
     }
 
 
     public void clicksaving(View v){
-
-        final EditText username1 = (EditText) findViewById(R.id.username);
-        final EditText usercode1 = (EditText) findViewById(R.id.usercode);
-        final EditText classcode1 = (EditText) findViewById(R.id.classcode);
+        classcode1 = (EditText) findViewById(R.id.classcode);
 
         FirebaseDatabase DB1 = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = DB1.getReference("check").child(classcode1.getText().toString()).child(usercode1.getText().toString());
+        DatabaseReference myRef = DB1.getReference("class").child(classcode1.getText().toString()).child("classUser").child(((MainActivity)MainActivity.forstatic).returnUsercode());
+        myRef.setValue(((MainActivity)MainActivity.forstatic).returnUsercode());
 
-        myRef.setValue(username1.getText().toString());
+        myRef = DB1.getReference("User").child(((MainActivity)MainActivity.forstatic).returnUsercode()).child("class");
+        myRef.setValue(classcode1.getText().toString());
 
-        ((MainActivity)MainActivity.forstatic).changingUsername(username1.getText().toString());
-        ((MainActivity)MainActivity.forstatic).changingUsercode(usercode1.getText().toString());
+        ((MainActivity)MainActivity.forstatic).changingUsername(((MainActivity)MainActivity.forstatic).returnUsername());
+        ((MainActivity)MainActivity.forstatic).changingUsercode(((MainActivity)MainActivity.forstatic).returnUsercode());
         ((MainActivity)MainActivity.forstatic).changingUsercode(classcode1.getText().toString());
     }
 
 
     public void clickcancel(View v) {
 
-        final EditText username1 = (EditText) findViewById(R.id.username);
-        final EditText usercode1 = (EditText) findViewById(R.id.usercode);
-        final EditText classcode1 = (EditText) findViewById(R.id.classcode);
+        classcode1 = (EditText) findViewById(R.id.classcode);
 
         FirebaseDatabase DB1 = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = DB1.getReference("check").child(classcode1.getText().toString()).child(usercode1.getText().toString());
+        DatabaseReference myRef = DB1.getReference("check").child(classcode1.getText().toString()).child(((MainActivity)MainActivity.forstatic).returnUsercode());
 
-        myRef.setValue(username1.toString());
+        myRef.setValue(((MainActivity)MainActivity.forstatic).returnUsername());
         myRef.removeValue();
 
-        ((MainActivity) MainActivity.forstatic).changingUsername(username1.getText().toString());
-        ((MainActivity) MainActivity.forstatic).changingUsercode(usercode1.getText().toString());
+        ((MainActivity) MainActivity.forstatic).changingUsername(((MainActivity)MainActivity.forstatic).returnUsername());
+        ((MainActivity) MainActivity.forstatic).changingUsercode(((MainActivity)MainActivity.forstatic).returnUsercode());
     }
 
 
     public void clickupdate(View v) {
 
-        final EditText username1 = (EditText) findViewById(R.id.username);
-        final EditText usercode1 = (EditText) findViewById(R.id.usercode);
-        final EditText classcode1 = (EditText) findViewById(R.id.classcode);
+        classcode1 = (EditText) findViewById(R.id.classcode);
         final EditText updatefield1 = (EditText) findViewById(R.id.updatefield);
 
         FirebaseDatabase DB1 = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = DB1.getReference("check").child(classcode1.getText().toString()).child("ALARM").child(username1.getText().toString());
+        DatabaseReference myRef = DB1.getReference("check").child(classcode1.getText().toString()).child("ALARM").child(((MainActivity)MainActivity.forstatic).returnUsername());
         myRef.setValue(updatefield1.getText().toString());
     }
 
