@@ -48,8 +48,10 @@ public class MainActivity extends AppCompatActivity {
 
         user = FirebaseAuth.getInstance().getCurrentUser();
 
-        Intent intent = new Intent(this, firstWindow.class);
-        startActivity(intent);
+        if(user==null) {
+            Intent intent = new Intent(this, firstWindow.class);
+            startActivity(intent);
+        }
 
         username = user.getDisplayName();
         usercode = user.getEmail().substring(0,8);
